@@ -51,14 +51,15 @@
       margin: 0;
     }
 
+    /* Bouton "+" du header : agrandi */
     .btn-icon {
-      width: 1.6rem;
-      height: 1.6rem;
+      width: 2.2rem;
+      height: 2.2rem;
       border: 1px solid #3a4050;
-      border-radius: 3px;
+      border-radius: 4px;
       background: #fff;
       color: #8a9098;
-      font-size: 1rem;
+      font-size: 1.4rem;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -118,8 +119,8 @@
       .category-row {
         display: flex;
         align-items: center;
-        gap: 0.2rem;
-        padding: 0 0.6rem 0 0.5rem;
+        gap: 0.3rem;
+        padding: 0 0.6rem 0 0.4rem;
         position: relative;
         transition: background 0.12s;
 
@@ -139,14 +140,15 @@
           }
         }
 
+        /* Chevron ouverture/fermeture : agrandi */
         .category-toggle {
-          width: 1.4rem;
-          height: 2rem;
+          width: 1.9rem;
+          height: 2.4rem;
           border: none;
           background: transparent;
-          color: #5a6478;
+          color: #8a9098;
           cursor: pointer;
-          font-size: 0.7rem;
+          font-size: 1.1rem;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -164,10 +166,10 @@
           border: none;
           background: transparent;
           color: #c0b8b0;
-          font-size: 0.875rem;
+          font-size: 0.9rem;
           font-weight: 600;
           cursor: pointer;
-          padding: 0.5rem 0.25rem;
+          padding: 0.55rem 0.25rem;
           min-width: 0;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -179,37 +181,39 @@
           }
         }
 
+        /* Icônes d'actions (+ et ×) : nettement agrandies */
         .row-actions {
           display: flex;
           align-items: center;
-          gap: 0.15rem;
+          gap: 0.3rem;
           opacity: 0;
           transition: opacity 0.15s;
           flex-shrink: 0;
 
           .btn-icon {
-            width: 1.3rem;
-            height: 1.3rem;
+            width: 1.9rem;
+            height: 1.9rem;
             border: none;
-            border-radius: 2px;
+            border-radius: 4px;
             background: transparent;
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: 1.15rem;
+            line-height: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #6a7080;
+            color: #9aa0aa;
             transition:
               background 0.12s,
               color 0.12s;
 
             &.small {
-              font-size: 0.7rem;
+              font-size: 1.05rem;
             }
 
             &:hover {
               background: #3a4050;
-              color: #c8c0b8;
+              color: #f0ece7;
             }
 
             &.edit:hover {
@@ -217,8 +221,8 @@
             }
 
             &.danger:hover {
-              background: rgba(192, 57, 43, 0.2);
-              color: #e08070;
+              background: rgba(192, 57, 43, 0.25);
+              color: #e89080;
             }
           }
         }
@@ -233,8 +237,8 @@
         .subcategory-row {
           display: flex;
           align-items: center;
-          gap: 0.2rem;
-          padding: 0 0.6rem 0 2.2rem;
+          gap: 0.3rem;
+          padding: 0 0.6rem 0 2.3rem;
           transition: background 0.12s;
           position: relative;
 
@@ -242,9 +246,9 @@
           &::before {
             content: "";
             position: absolute;
-            left: 1.2rem;
+            left: 1.3rem;
             top: 50%;
-            width: 0.55rem;
+            width: 0.6rem;
             height: 1px;
             background: #3a4050;
           }
@@ -271,10 +275,10 @@
             border: none;
             background: transparent;
             color: #8a9098;
-            font-size: 0.825rem;
+            font-size: 0.85rem;
             font-weight: 500;
             cursor: pointer;
-            padding: 0.42rem 0.25rem;
+            padding: 0.45rem 0.25rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -285,26 +289,28 @@
             }
           }
 
+          /* Icônes d'actions sous-catégorie : agrandies */
           .row-actions {
             display: flex;
             align-items: center;
-            gap: 0.15rem;
+            gap: 0.25rem;
             opacity: 0;
             transition: opacity 0.15s;
             flex-shrink: 0;
 
             .btn-icon {
-              width: 1.2rem;
-              height: 1.2rem;
+              width: 1.7rem;
+              height: 1.7rem;
               border: none;
-              border-radius: 2px;
+              border-radius: 4px;
               background: transparent;
               cursor: pointer;
-              font-size: 0.65rem;
+              font-size: 1.05rem;
+              line-height: 1;
               display: flex;
               align-items: center;
               justify-content: center;
-              color: #6a7080;
+              color: #9aa0aa;
               transition:
                 background 0.12s,
                 color 0.12s;
@@ -315,8 +321,8 @@
               }
 
               &.danger:hover {
-                background: rgba(192, 57, 43, 0.2);
-                color: #e08070;
+                background: rgba(192, 57, 43, 0.25);
+                color: #e89080;
               }
             }
           }
@@ -326,7 +332,7 @@
           font-size: 0.75rem;
           color: #4a5060;
           font-style: italic;
-          padding: 0.3rem 0.6rem 0.3rem 2.2rem;
+          padding: 0.3rem 0.6rem 0.3rem 2.3rem;
         }
       }
     }
@@ -339,7 +345,7 @@
 
     .category-name,
     .subcategory-name {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
     }
   }
 
@@ -360,6 +366,13 @@
       border-bottom: 1px solid #2c3240;
       padding: 0.7rem 1rem;
       flex-shrink: 0;
+
+      /* Bouton + reste bien tappable sur mobile */
+      .btn-icon {
+        width: 2.1rem;
+        height: 2.1rem;
+        font-size: 1.3rem;
+      }
     }
 
     .sidebar-item.all {
@@ -408,6 +421,8 @@
           .category-toggle {
             order: 2;
             height: 100%;
+            width: 1.8rem;
+            font-size: 1.05rem;
           }
 
           .category-name {
@@ -417,6 +432,12 @@
 
           .row-actions {
             opacity: 1;
+
+            .btn-icon {
+              width: 1.8rem;
+              height: 1.8rem;
+              font-size: 1.05rem;
+            }
           }
         }
 
@@ -444,6 +465,10 @@
             &::before {
               display: none;
             }
+
+            .row-actions {
+              opacity: 1;
+            }
           }
         }
       }
@@ -466,11 +491,11 @@
 
     .category-tree > li {
       .category-row {
-        padding: 0 0.3rem 0 0.6rem;
+        padding: 0 0.35rem 0 0.5rem;
 
         .category-name {
-          font-size: 0.8rem;
-          padding: 0.4rem 0.2rem;
+          font-size: 0.82rem;
+          padding: 0.45rem 0.2rem;
         }
       }
     }
