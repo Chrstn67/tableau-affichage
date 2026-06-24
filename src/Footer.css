@@ -9,13 +9,13 @@
 
 .footer-inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
-  flex-wrap: wrap;
   max-width: 1200px;
 }
 
-/* Logo optionnel */
+/* Logo */
 .footer-logo {
   max-height: 24px;
   max-width: 80px;
@@ -45,7 +45,7 @@
 
 .footer-about-text {
   font-size: 0.8rem;
-  color: #000000;
+  color: #000;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -59,8 +59,21 @@
 .footer-meta {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   flex-shrink: 0;
+}
+
+.footer-copy {
+  font-size: 0.72rem;
+  color: #b0a8a0;
+  white-space: nowrap;
+}
+
+/* séparateur entre les deux .footer-copy */
+.footer-copy + .footer-copy::before {
+  content: "·";
+  margin-right: 0.5rem;
+  color: #c8c2bb;
 }
 
 .footer-legal {
@@ -73,41 +86,88 @@
 .footer-legal:hover {
   color: #b87333;
 }
-
 .footer-legal:focus-visible {
   outline: 2px solid #b87333;
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-.footer-sep {
-  font-size: 0.72rem;
-  color: #c8c2bb;
-}
-
-.footer-copy {
-  font-size: 0.72rem;
-  color: #b0a8a0;
-  white-space: nowrap;
-}
-
-/* ── Responsive ── */
+/* ── Tablette : sidebar disparaît ── */
 @media (max-width: 1024px) {
   .site-footer {
     margin-left: 0;
   }
 }
 
-@media (max-width: 600px) {
-  .site-footer {
-    padding: 0.6rem 1rem;
+/* ── Tablette étroite : on empile logo + meta, about se réduit ── */
+@media (max-width: 720px) {
+  .footer-inner {
+    flex-wrap: wrap;
+    row-gap: 0.35rem;
   }
 
   .footer-about {
-    display: none; /* trop étroit, on masque le texte */
+    order: 2; /* passe sous logo + meta */
+    flex-basis: 100%;
+    overflow: hidden;
+  }
+
+  .footer-about-text {
+    white-space: normal; /* autorise le retour à la ligne */
+    overflow: visible;
+    text-overflow: unset;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 2 lignes max */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .footer-meta {
+    margin-left: auto; /* pousse meta à droite, logo à gauche */
+  }
+}
+
+/* ── Mobile : tout en colonne, about visible ── */
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 0.75rem 1rem;
   }
 
   .footer-inner {
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .footer-about {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    order: 2;
+    flex-basis: 100%;
+  }
+
+  .footer-about-text {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    -webkit-line-clamp: unset;
+    display: block;
+    font-size: 0.78rem;
+    color: #555;
+  }
+
+  .footer-meta {
+    margin-left: 0;
+    order: 3;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+  }
+
+  /* retire le séparateur · quand ils sont empilés */
+  .footer-copy + .footer-copy::before {
+    display: none;
   }
 }
