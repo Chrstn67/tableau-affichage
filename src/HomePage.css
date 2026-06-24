@@ -1,0 +1,152 @@
+/* src/components/pages/HomePage.css */
+
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg, #f8f8f5);
+  font-family: inherit;
+}
+
+/* ── Main centré ── */
+.home-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem 4rem;
+}
+
+/* ── Carte de bienvenue ── */
+.home-welcome {
+  background: #fff;
+  border: 1px solid #e5e5e0;
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.06);
+}
+
+.home-logo-mark {
+  font-size: 1.8rem;
+  color: #b87333;
+  line-height: 1;
+}
+
+.home-title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #1a1a2e;
+  margin: 0;
+  line-height: 1.15;
+}
+
+/* Séparateur doré — signature de la page */
+.home-divider {
+  width: 48px;
+  height: 2px;
+  background: #b87333;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.home-greeting {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Avertissement confidentialité ── */
+.home-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: #fdf8f2;
+  border: 1px solid #e8d9c4;
+  border-left: 3px solid #b87333;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.home-notice-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.home-notice-text {
+  font-size: 0.82rem;
+  color: #6b5a45;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Boutons d'action ── */
+.home-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s,
+    background 0.15s;
+  border: none;
+}
+
+.home-btn--primary {
+  background: #1a1a2e;
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(26, 26, 46, 0.18);
+}
+
+.home-btn--primary:hover {
+  background: #26264a;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 18px rgba(26, 26, 46, 0.25);
+}
+
+.home-btn--secondary {
+  background: #fff;
+  color: #1a1a2e;
+  border: 1px solid #d5d5cc;
+}
+
+.home-btn--secondary:hover {
+  border-color: #1a1a2e;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .home-welcome {
+    padding: 2rem 1.25rem;
+    border-radius: 12px;
+  }
+}
