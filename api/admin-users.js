@@ -1,6 +1,3 @@
-// server/api/admin-users.js (ou pages/api/admin-users.js selon votre framework)
-// Ce fichier doit être exécuté côté serveur (Node.js)
-
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.VITE_SUPABASE_URL;

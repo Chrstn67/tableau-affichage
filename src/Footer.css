@@ -1,0 +1,113 @@
+/* ── Footer — discret, collé en bas ── */
+
+.site-footer {
+  margin-left: 17rem;
+  background: #f4f1ec;
+  border-top: 1px solid #e0d8cf;
+  padding: 0.6rem 1.5rem;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}
+
+/* Logo optionnel */
+.footer-logo {
+  max-height: 24px;
+  max-width: 80px;
+  object-fit: contain;
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+/* Texte "à propos" */
+.footer-about {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  overflow: hidden;
+}
+
+.footer-about-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b87333;
+  flex-shrink: 0;
+}
+
+.footer-about-text {
+  font-size: 0.8rem;
+  color: #000000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer-about-text em {
+  font-style: italic;
+}
+
+/* Mentions légales + copyright */
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.footer-legal {
+  font-size: 0.72rem;
+  color: #9a958f;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-legal:hover {
+  color: #b87333;
+}
+
+.footer-legal:focus-visible {
+  outline: 2px solid #b87333;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.footer-sep {
+  font-size: 0.72rem;
+  color: #c8c2bb;
+}
+
+.footer-copy {
+  font-size: 0.72rem;
+  color: #b0a8a0;
+  white-space: nowrap;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .site-footer {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    padding: 0.6rem 1rem;
+  }
+
+  .footer-about {
+    display: none; /* trop étroit, on masque le texte */
+  }
+
+  .footer-inner {
+    justify-content: center;
+  }
+}

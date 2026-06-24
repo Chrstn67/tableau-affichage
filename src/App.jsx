@@ -9,6 +9,9 @@ import NameModal from "./components/common/NameModal";
 import AdminLogin from "./components/admin/AdminLogin";
 import ChangePasswordModal from "./components/admin/ChangePasswordModal";
 import ManageCollaborators from "./components/admin/ManageCollaborators";
+
+import Footer from "./Footer";
+
 import "./App.css";
 
 export default function App() {
@@ -153,14 +156,30 @@ export default function App() {
 
       <main className="main-content">
         <header className="top-bar">
-          <input
-            className="search-input"
-            placeholder="Rechercher un document..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          <h1>
+            Tableau d'affichage virtuel - <br />
+            Assemblée de Mutzig
+          </h1>
+
+          <div className="search-wrapper">
+            <input
+              className="search-input"
+              placeholder="Rechercher un document..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
 
           <div className="top-bar-actions">
+            <a
+              className="btn-tpl"
+              href="https://docs.google.com/spreadsheets/d/1wB8jJoLPu7SOGhXMm9cj7e_VRzu6ZeuYCmv_zZlPgWE/edit?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              TPL
+            </a>
+
             {isAdmin ? (
               <>
                 <button onClick={handleAddDocument}>
@@ -252,6 +271,7 @@ export default function App() {
           }}
         />
       )}
+      <Footer />
     </div>
   );
 }
