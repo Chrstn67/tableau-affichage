@@ -1,0 +1,9 @@
+/* SubcategoryModal.css — nested, responsive */
+/* Shares the .modal-overlay / .modal-card base with CategoryModal.css.
+   In production, import only one of them globally and drop this file,
+   or keep a single shared modals.css. */
+
+/* Subcategory-specific accent: slightly cooler tint on the bar */
+.modal-overlay .modal-card::before {
+  background: linear-gradient(90deg, #7a6a9a, #b87333);
+}

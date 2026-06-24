@@ -1,0 +1,114 @@
+/* TopBar.css — nested, responsive */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.5rem;
+  background: #1e2430;
+  color: #c8c0b8;
+  border-bottom: 3px solid #b87333;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .topbar-left {
+    .topbar-title {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #e8c8a0;
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+
+    .topbar-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 3px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid #3a4050;
+      background: transparent;
+      color: #c8c0b8;
+      cursor: pointer;
+      transition:
+        background 0.15s,
+        color 0.15s,
+        border-color 0.15s;
+
+      &:hover {
+        background: #252c3a;
+        color: #f0ece7;
+        border-color: #4a5066;
+      }
+
+      &.primary {
+        background: #b87333;
+        color: #fff;
+        border-color: #b87333;
+
+        &:hover {
+          background: #a0632a;
+          border-color: #a0632a;
+        }
+      }
+
+      &.logout {
+        color: #e08070;
+        border-color: #3a4050;
+
+        &:hover {
+          background: rgba(192, 57, 43, 0.15);
+          color: #e08070;
+          border-color: #c0392b;
+        }
+      }
+    }
+
+    .topbar-user {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #8a9098;
+      padding: 0 0.3rem;
+    }
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+
+    .topbar-left {
+      .topbar-title {
+        font-size: 1rem;
+        text-align: center;
+      }
+    }
+
+    .topbar-right {
+      justify-content: center;
+
+      .topbar-btn {
+        flex: 1 1 auto;
+        font-size: 0.78rem;
+        padding: 0.5rem 0.7rem;
+      }
+
+      .topbar-user {
+        width: 100%;
+        text-align: center;
+        order: -1;
+      }
+    }
+  }
+}
