@@ -1,3 +1,4 @@
+// App.jsx - Version corrigée avec l'ordre des routes
 import { useEffect, useMemo, useState, useCallback } from "react";
 import {
   Routes,
@@ -18,6 +19,7 @@ import ChangePasswordModal from "./components/admin/ChangePasswordModal";
 import ManageCollaborators from "./components/admin/ManageCollaborators";
 
 import Footer from "./Footer";
+import MentionsLegales from "./MentionsLegales";
 
 import "./App.css";
 
@@ -341,7 +343,10 @@ export default function App() {
         element={<DocumentsPage {...sharedProps} />}
       />
 
-      {/* Fallback → accueil */}
+      {/* Mentions légales - PLACÉ AVANT LE FALLBACK */}
+      <Route path="/mentions-legales" element={<MentionsLegales />} />
+
+      {/* Fallback → accueil - TOUJOURS EN DERNIER */}
       <Route
         path="*"
         element={<HomePage categories={categories} documents={documents} />}

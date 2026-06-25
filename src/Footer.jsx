@@ -1,4 +1,6 @@
+// Footer.jsx
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 export default function Footer({
   logoSrc = "/Logo.jpg",
@@ -23,6 +25,10 @@ export default function Footer({
 
         {/* Liens & copyright */}
         <div className="footer-meta">
+          <Link to="/mentions-legales" className="footer-legal">
+            Mentions légales
+          </Link>
+
           <span className="footer-copy">
             Tous droits réservés. Reproduction interdite.
           </span>

@@ -63,17 +63,9 @@ function PdfThumbnail({ url, alt }) {
   }, [url]);
 
   return (
-    <div className="thumb-wrap">
-      {status === "loading" && (
-        <div className="thumb-placeholder">
-          <span className="thumb-spinner" />
-        </div>
-      )}
-      {status === "error" && (
-        <div className="thumb-placeholder thumb-fallback">
-          <span className="thumb-icon">PDF</span>
-        </div>
-      )}
+    <div className="thumb">
+      {status === "loading" && <span className="thumb-spinner" />}
+      {status === "error" && <span className="thumb-pdf-icon">PDF</span>}
       <img
         ref={imgRef}
         alt={alt}
@@ -89,40 +81,43 @@ function isNew(createdAt) {
 }
 
 function DocumentCard({ doc, isAdmin, onDelete, onEdit }) {
+  const categoryLabel = [doc.category_name, doc.subcategory_name]
+    .filter(Boolean)
+    .join(" › ");
+
   return (
     <div className="doc-card">
       <a
         href={doc.file_url}
         target="_blank"
         rel="noreferrer"
-        className="doc-thumb"
+        className="doc-thumb-link"
       >
         {isNew(doc.created_at) && (
-          <span className="doc-badge-new" aria-label="Nouveau document">
+          <span className="badge-new" aria-label="Nouveau document">
             Nouveau
           </span>
         )}
         <PdfThumbnail url={doc.file_url} alt={doc.title} />
       </a>
 
-      <div className="doc-info">
-        <h3 title={doc.title}>{doc.title}</h3>
-        <p className="doc-meta">
-          {doc.category_name}
-          {doc.subcategory_name ? ` › ${doc.subcategory_name}` : ""}
+      <div className="doc-body">
+        <p className="doc-title" title={doc.title}>
+          {doc.title}
         </p>
-        <p className="doc-date">
+        {categoryLabel && <span className="doc-tag">{categoryLabel}</span>}
+        <span className="doc-date">
           {new Date(doc.created_at).toLocaleDateString("fr-FR", {
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
           })}
-        </p>
+        </span>
       </div>
 
-      <div className="doc-actions">
+      <div className="doc-footer">
         <a
-          className="btn-link"
+          className="btn-open"
           href={doc.file_url}
           target="_blank"
           rel="noreferrer"
@@ -131,15 +126,33 @@ function DocumentCard({ doc, isAdmin, onDelete, onEdit }) {
         </a>
         {isAdmin && (
           <>
-            <button className="btn-link" onClick={() => onEdit(doc)}>
-              Modifier
+            <button
+              className="btn-icon"
+              onClick={() => onEdit(doc)}
+              title="Modifier"
+            >
+              ✏️
             </button>
-            <button className="btn-link danger" onClick={() => onDelete(doc)}>
-              Supprimer
+            <button
+              className="btn-icon danger"
+              onClick={() => onDelete(doc)}
+              title="Supprimer"
+            >
+              🗑
             </button>
           </>
         )}
       </div>
+    </div>
+  );
+}
+
+function SectionHeader({ icon, title, count }) {
+  return (
+    <div className="section-header">
+      <div className="section-icon">{icon}</div>
+      <span className="section-title">{title}</span>
+      {count != null && <span className="section-count">{count}</span>}
     </div>
   );
 }
@@ -150,26 +163,57 @@ export default function DocumentGrid({
   onDelete,
   onEdit,
   loading,
+  mode,
 }) {
-  if (loading) {
-    return <p className="empty-state">Chargement des documents...</p>;
+  if (loading) return <p className="doc-empty">Chargement des documents…</p>;
+
+  if (mode === "home") {
+    const recent = documents.filter((d) => isNew(d.created_at));
+    return (
+      <div className="doc-layout">
+        <SectionHeader icon="✨" title="Nouveautés" count={recent.length} />
+        {recent.length === 0 ? (
+          <p className="doc-empty">
+            Aucune nouveauté cette semaine — revenez bientôt&nbsp;!
+          </p>
+        ) : (
+          <div className="doc-grid">
+            {recent.map((doc) => (
+              <DocumentCard
+                key={doc.id}
+                doc={doc}
+                isAdmin={isAdmin}
+                onDelete={onDelete}
+                onEdit={onEdit}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
   }
 
-  if (documents.length === 0) {
-    return <p className="empty-state">Aucun document dans cette section.</p>;
-  }
+  if (documents.length === 0)
+    return <p className="doc-empty">Aucun document dans cette section.</p>;
 
   return (
-    <div className="doc-grid">
-      {documents.map((doc) => (
-        <DocumentCard
-          key={doc.id}
-          doc={doc}
-          isAdmin={isAdmin}
-          onDelete={onDelete}
-          onEdit={onEdit}
-        />
-      ))}
+    <div className="doc-layout">
+      <SectionHeader
+        icon="📁"
+        title="Tous les documents"
+        count={documents.length}
+      />
+      <div className="doc-grid">
+        {documents.map((doc) => (
+          <DocumentCard
+            key={doc.id}
+            doc={doc}
+            isAdmin={isAdmin}
+            onDelete={onDelete}
+            onEdit={onEdit}
+          />
+        ))}
+      </div>
     </div>
   );
 }
