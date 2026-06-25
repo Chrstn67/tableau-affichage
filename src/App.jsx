@@ -169,7 +169,7 @@ function DocumentsPage({
 
             {isAdmin ? (
               <>
-                <button onClick={handleAddDocument}>
+                <button className="btn-add-doc" onClick={handleAddDocument}>
                   + Ajouter un document
                 </button>
                 <button
