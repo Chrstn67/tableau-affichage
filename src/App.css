@@ -87,7 +87,7 @@
 }
 
 .search-input:focus {
-  border-color: #b87333;
+  border-color: #4a6da7;
   background: #fff;
   box-shadow: 0 0 0 3px rgba(184, 115, 51, 0.12);
 }
@@ -126,7 +126,7 @@
 }
 
 .top-bar-actions button {
-  background-color: #b87333;
+  background-color: #4a6da7;
   color: #fff;
 }
 
@@ -424,7 +424,7 @@
 .modal-content input:focus,
 .modal-content select:focus,
 .modal-content textarea:focus {
-  border-color: #b87333;
+  border-color: #4a6da7;
   outline: none;
 }
 
@@ -445,7 +445,7 @@
 }
 
 .modal-content .modal-actions button.btn-primary {
-  background: #b87333;
+  background: #4a6da7;
   color: #fff;
 }
 

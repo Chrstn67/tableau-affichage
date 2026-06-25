@@ -36,7 +36,7 @@
       left: 0;
       right: 0;
       height: 3px;
-      background: linear-gradient(90deg, #b87333, #d4956a);
+      background: linear-gradient(90deg, #4a6da7, #d4956a);
       border-radius: 4px 4px 0 0;
     }
 
@@ -68,7 +68,7 @@
       }
 
       &:focus {
-        border-color: #b87333;
+        border-color: #4a6da7;
         box-shadow: 0 0 0 3px rgba(184, 115, 51, 0.12);
       }
     }
@@ -100,7 +100,7 @@
           transform 0.1s;
 
         &[type="submit"] {
-          background: #b87333;
+          background: #4a6da7;
           color: #fff;
 
           &:hover:not(:disabled) {

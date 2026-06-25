@@ -15,7 +15,7 @@
   border-right: 1px solid #2c3240;
 
   /* Copper left edge indicator */
-  border-left: 3px solid #b87333;
+  border-left: 3px solid #4a6da7;
 
   /* Custom scrollbar */
   &::-webkit-scrollbar {
@@ -66,9 +66,9 @@
         border-color 0.15s;
 
       &:hover {
-        background: #b87333;
+        background: #4a6da7;
         color: #fff;
-        border-color: #b87333;
+        border-color: #4a6da7;
       }
     }
   }
@@ -98,7 +98,7 @@
     &.active {
       color: #e8c8a0;
       background: #252c3a;
-      border-left: 3px solid #b87333;
+      border-left: 3px solid #4a6da7;
       padding-left: calc(1.1rem - 3px);
     }
   }
@@ -335,7 +335,7 @@
     min-width: unset;
     position: static;
     border-left: none;
-    border-bottom: 3px solid #b87333;
+    border-bottom: 3px solid #4a6da7;
     border-right: none;
     flex-direction: row;
     overflow-x: auto;
@@ -355,7 +355,7 @@
 
       &.active {
         border-left: none;
-        border-bottom: 3px solid #b87333;
+        border-bottom: 3px solid #4a6da7;
         padding-left: 1.1rem;
       }
     }

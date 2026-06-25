@@ -8,7 +8,7 @@
   padding: 0.9rem 1.5rem;
   background: #1e2430;
   color: #c8c0b8;
-  border-bottom: 3px solid #b87333;
+  border-bottom: 3px solid #4a6da7;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -51,9 +51,9 @@
       }
 
       &.primary {
-        background: #b87333;
+        background: #4a6da7;
         color: #fff;
-        border-color: #b87333;
+        border-color: #4a6da7;
 
         &:hover {
           background: #a0632a;

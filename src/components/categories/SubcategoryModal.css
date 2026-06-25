@@ -5,5 +5,5 @@
 
 /* Subcategory-specific accent: slightly cooler tint on the bar */
 .modal-overlay .modal-card::before {
-  background: linear-gradient(90deg, #7a6a9a, #b87333);
+  background: linear-gradient(90deg, #7a6a9a, #4a6da7);
 }

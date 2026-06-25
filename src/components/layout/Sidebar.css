@@ -41,7 +41,7 @@
 }
 
 .sidebar-burger-fab:focus-visible {
-  outline: 2px solid #b87333;
+  outline: 2px solid #4a6da7;
   outline-offset: 2px;
 }
 
@@ -105,7 +105,7 @@
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
-  background: #b87333;
+  background: #4a6da7;
   flex-shrink: 0;
 }
 
@@ -139,7 +139,7 @@
 }
 
 .sidebar-search:focus-within {
-  border-color: #b87333;
+  border-color: #4a6da7;
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(184, 115, 51, 0.12);
 }
@@ -185,7 +185,7 @@
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background: #b87333;
+  background: #4a6da7;
   border-radius: 2px;
 }
 
@@ -225,11 +225,11 @@
 }
 
 .sidebar-all-btn.active .sidebar-all-icon {
-  color: #b87333;
+  color: #4a6da7;
 }
 
 .sidebar-all-btn:focus-visible {
-  outline: 2px solid #b87333;
+  outline: 2px solid #4a6da7;
   outline-offset: -2px;
 }
 
@@ -320,7 +320,7 @@
 }
 
 .sidebar-toggle-btn:focus-visible {
-  outline: 2px solid #b87333;
+  outline: 2px solid #4a6da7;
   outline-offset: 2px;
 }
 
@@ -329,7 +329,7 @@
   width: 0.375rem;
   height: 0.375rem;
   border-radius: 50%;
-  background: #b87333;
+  background: #4a6da7;
   flex-shrink: 0;
   opacity: 0.6;
 }
@@ -348,11 +348,11 @@
 }
 
 .sidebar-cat-label:hover {
-  color: #b87333;
+  color: #4a6da7;
 }
 
 .sidebar-cat-label:focus-visible {
-  outline: 2px solid #b87333;
+  outline: 2px solid #4a6da7;
   outline-offset: 2px;
 }
 
@@ -396,7 +396,7 @@
 }
 
 .sidebar-act-btn:focus-visible {
-  outline: 2px solid #b87333;
+  outline: 2px solid #4a6da7;
   outline-offset: 2px;
 }
 
@@ -407,7 +407,7 @@
   transform: translateY(-50%);
   width: 3px;
   height: 0;
-  background: #b87333;
+  background: #4a6da7;
   border-radius: 0 2px 2px 0;
   transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -467,11 +467,11 @@
 }
 
 .sidebar-sub-label:hover {
-  color: #b87333;
+  color: #4a6da7;
 }
 
 .sidebar-sub-label:focus-visible {
-  outline: 2px solid #b87333;
+  outline: 2px solid #4a6da7;
   outline-offset: 2px;
 }
 
@@ -512,12 +512,12 @@
 
 .sidebar-footer-btn:hover {
   background: rgba(184, 115, 51, 0.12);
-  color: #b87333;
+  color: #4a6da7;
   transform: scale(1.01);
 }
 
 .sidebar-footer-btn:focus-visible {
-  outline: 2px solid #b87333;
+  outline: 2px solid #4a6da7;
   outline-offset: 2px;
 }
 
@@ -567,7 +567,7 @@
   }
 
   .sidebar-close-btn:focus-visible {
-    outline: 2px solid #b87333;
+    outline: 2px solid #4a6da7;
     outline-offset: 2px;
   }
 
@@ -670,12 +670,12 @@
 .sidebar-close-btn:focus-visible,
 .sidebar-footer-btn:focus-visible,
 .sidebar-burger-fab:focus-visible {
-  outline: 2px solid #b87333;
+  outline: 2px solid #4a6da7;
   outline-offset: 2px;
 }
 
 /* Firefox scrollbar */
 .sidebar-scroll {
   scrollbar-width: thin;
-  scrollbar-color: #b87333 #d4cfc8;
+  scrollbar-color: #4a6da7 #d4cfc8;
 }

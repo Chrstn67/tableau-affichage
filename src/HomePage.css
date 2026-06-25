@@ -35,7 +35,7 @@
 
 .home-logo-mark {
   font-size: 1.8rem;
-  color: #b87333;
+  color: #4a6da7;
   line-height: 1;
 }
 
@@ -52,7 +52,7 @@
 .home-divider {
   width: 48px;
   height: 2px;
-  background: #b87333;
+  background: #4a6da7;
   border-radius: 999px;
   flex-shrink: 0;
 }
@@ -71,7 +71,7 @@
   gap: 0.75rem;
   background: #fdf8f2;
   border: 1px solid #e8d9c4;
-  border-left: 3px solid #b87333;
+  border-left: 3px solid #4a6da7;
   border-radius: 8px;
   padding: 0.9rem 1rem;
   text-align: left;
