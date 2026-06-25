@@ -12,9 +12,16 @@ export default function Sidebar({
   onDeleteSubcategory,
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [openCategories, setOpenCategories] = useState(() => new Set());
+  const [openCategories, setOpenCategories] = useState(
+    () => new Set(categories.map((c) => c.id)),
+  );
   const closeButtonRef = useRef(null);
   const burgerRef = useRef(null);
+
+  // Sync when categories load (if initially empty)
+  useEffect(() => {
+    setOpenCategories(new Set(categories.map((c) => c.id)));
+  }, [categories]);
 
   function openDrawer() {
     setIsOpen(true);
@@ -45,6 +52,12 @@ export default function Sidebar({
       next.has(catId) ? next.delete(catId) : next.add(catId);
       return next;
     });
+  }
+
+  function handleSelect(sel) {
+    onSelect(sel);
+    // Ferme le drawer en mobile après sélection
+    closeDrawer();
   }
 
   return (
@@ -192,7 +205,7 @@ export default function Sidebar({
           {/* All documents */}
           <button
             className={`sidebar-all-btn${selected.type === "all" ? " active" : ""}`}
-            onClick={() => onSelect({ type: "all" })}
+            onClick={() => handleSelect({ type: "all" })}
           >
             <span className="sidebar-all-icon" aria-hidden="true">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -291,7 +304,9 @@ export default function Sidebar({
 
                     <button
                       className="sidebar-cat-label"
-                      onClick={() => onSelect({ type: "category", id: cat.id })}
+                      onClick={() =>
+                        handleSelect({ type: "category", id: cat.id })
+                      }
                     >
                       {cat.name}
                     </button>
@@ -385,7 +400,10 @@ export default function Sidebar({
                               <button
                                 className="sidebar-sub-label"
                                 onClick={() =>
-                                  onSelect({ type: "subcategory", id: sub.id })
+                                  handleSelect({
+                                    type: "subcategory",
+                                    id: sub.id,
+                                  })
                                 }
                               >
                                 {sub.name}

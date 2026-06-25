@@ -38,7 +38,7 @@ export default function HomePage({ categories = [], documents = [] }) {
               className="home-btn home-btn--primary"
               onClick={() => navigate("/documents")}
             >
-              📄 Accéder aux documents
+              📄 Accéder au tableau d'affichage
             </button>
             <a
               className="home-btn home-btn--secondary"
@@ -46,7 +46,7 @@ export default function HomePage({ categories = [], documents = [] }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              📊 Accéder au TPL
+              📊 Tableau TPL
             </a>
           </div>
         </div>
