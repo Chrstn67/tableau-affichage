@@ -84,6 +84,10 @@ function PdfThumbnail({ url, alt }) {
   );
 }
 
+function isNew(createdAt) {
+  return Date.now() - new Date(createdAt).getTime() < 7 * 24 * 60 * 60 * 1000;
+}
+
 function DocumentCard({ doc, isAdmin, onDelete, onEdit }) {
   return (
     <div className="doc-card">
@@ -93,6 +97,11 @@ function DocumentCard({ doc, isAdmin, onDelete, onEdit }) {
         rel="noreferrer"
         className="doc-thumb"
       >
+        {isNew(doc.created_at) && (
+          <span className="doc-badge-new" aria-label="Nouveau document">
+            Nouveau
+          </span>
+        )}
         <PdfThumbnail url={doc.file_url} alt={doc.title} />
       </a>
 

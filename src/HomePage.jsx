@@ -27,7 +27,7 @@ export default function HomePage({ categories = [], documents = [] }) {
             <span className="home-notice-icon">🔒</span>
             <p className="home-notice-text">
               Ce site est réservé aux membres de l'assemblée de Mutzig. Merci de
-              ne pas partager l'adresse ou les accès avec des personnes
+              ne pas partager le lien du site et ses accès avec des personnes
               extérieures.
             </p>
           </div>
