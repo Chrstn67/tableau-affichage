@@ -187,7 +187,7 @@ function DocumentsPage({
                   Changer mon mot de passe
                 </button>
                 <button className="btn-secondary" onClick={logout}>
-                  Déconnexion admin
+                  Déconnexion
                 </button>
               </>
             ) : (
@@ -195,7 +195,7 @@ function DocumentsPage({
                 className="btn-secondary"
                 onClick={() => setShowLogin(true)}
               >
-                Connexion admin
+                Connexion
               </button>
             )}
           </div>

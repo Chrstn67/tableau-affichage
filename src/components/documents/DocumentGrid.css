@@ -62,7 +62,7 @@
 /* ── Card ── */
 .doc-card {
   background: #fff;
-  border: 0.5px solid rgba(74, 109, 167, 0.18);
+  outline: solid 2px #4a6da7;
   border-radius: var(--radius-card);
   overflow: hidden;
   display: flex;
@@ -190,18 +190,19 @@
   padding: 10px 14px;
   border-top: 0.5px solid rgba(74, 109, 167, 0.1);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
 }
 
 .btn-open {
-  flex: 1;
+  display: block;
+  width: 100%;
   text-align: center;
   background: var(--brand);
   color: #fff;
   font-size: 12px;
   font-weight: 500;
-  padding: 6px 0;
+  padding: 7px 0;
   border-radius: var(--radius-sm);
   text-decoration: none;
   border: none;
@@ -212,6 +213,14 @@
 .btn-open:hover {
   background: var(--brand-dark);
   color: #fff;
+}
+
+.doc-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .btn-icon {
@@ -225,15 +234,48 @@
   justify-content: center;
   font-size: 13px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+  flex-shrink: 0;
+  flex: 1;
+  max-width: 44px;
 }
 
 .btn-icon:hover {
   background: var(--brand-light);
 }
 
+.btn-icon--download {
+  border-color: rgba(46, 139, 87, 0.3);
+  background: rgba(46, 139, 87, 0.08);
+}
+
+.btn-icon--download:hover {
+  background: rgba(46, 139, 87, 0.18);
+}
+
+.btn-icon--print {
+  border-color: rgba(74, 109, 167, 0.3);
+  background: rgba(74, 109, 167, 0.08);
+}
+
+.btn-icon--print:hover {
+  background: rgba(74, 109, 167, 0.18);
+}
+
+.btn-icon--edit {
+  border-color: rgba(217, 152, 22, 0.35);
+  background: rgba(217, 152, 22, 0.1);
+}
+
+.btn-icon--edit:hover {
+  background: rgba(217, 152, 22, 0.2);
+}
+
 .btn-icon.danger {
-  border-color: rgba(192, 57, 43, 0.2);
+  border-color: rgba(192, 57, 43, 0.3);
+  background: rgba(192, 57, 43, 0.08);
 }
 
 .btn-icon.danger:hover {
@@ -257,5 +299,41 @@
 
   .thumb {
     height: 100px;
+  }
+}
+
+/* ── Impression PDF ── */
+.print-pdf-container {
+  display: none;
+}
+
+.print-pdf-page {
+  width: 100%;
+}
+
+.print-pdf-page img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media print {
+  /* Masque tout le reste du site, n'affiche que les pages du PDF */
+  body.printing-pdf-doc > *:not(.print-pdf-container) {
+    display: none !important;
+  }
+
+  body.printing-pdf-doc .print-pdf-container {
+    display: block;
+  }
+
+  .print-pdf-page {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .print-pdf-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
   }
 }

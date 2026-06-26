@@ -80,10 +80,161 @@ function isNew(createdAt) {
   return Date.now() - new Date(createdAt).getTime() < 7 * 24 * 60 * 60 * 1000;
 }
 
+/**
+ * Télécharge un fichier distant en forçant le téléchargement
+ * (évite l'ouverture dans un nouvel onglet, même si le fichier
+ * provient d'une origine différente).
+ */
+async function downloadFile(url, filename) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Réponse réseau invalide");
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.download = filename || "document.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(blobUrl);
+  } catch (err) {
+    // Repli si le fetch échoue (ex. CORS) : ouverture directe du fichier
+    console.error("Échec du téléchargement, ouverture directe :", err);
+    window.open(url, "_blank", "noreferrer");
+  }
+}
+
+/**
+ * Rend toutes les pages d'un PDF en images, et détecte l'orientation
+ * dominante (portrait ou paysage) du document.
+ */
+async function buildPrintPages(url) {
+  const pdf = await pdfjsLib.getDocument(url).promise;
+  const pages = [];
+  let landscapeCount = 0;
+
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    // scale 2 = bonne qualité d'impression sans être trop lourd
+    const viewport = page.getViewport({ scale: 2 });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    await page.render({
+      canvasContext: canvas.getContext("2d"),
+      viewport,
+    }).promise;
+
+    const isLandscape = viewport.width > viewport.height;
+    if (isLandscape) landscapeCount += 1;
+
+    pages.push({ dataUrl: canvas.toDataURL("image/png"), isLandscape });
+  }
+
+  const orientation =
+    landscapeCount > pdf.numPages / 2 ? "landscape" : "portrait";
+
+  return { pages, orientation };
+}
+
+/**
+ * Ouvre le tableau d'impression natif du navigateur (équivalent Ctrl+P)
+ * en imprimant chaque page du PDF en tant qu'image, avec une règle
+ * @page dont l'orientation correspond au document. Cela évite le
+ * dépassement du format A4 lorsque le PDF est en paysage : on ne dépend
+ * plus du visualiseur PDF natif du navigateur, qui imprime par défaut
+ * en portrait quelle que soit l'orientation réelle du fichier.
+ */
+async function printFile(url) {
+  let container;
+  let styleEl;
+
+  try {
+    const { pages, orientation } = await buildPrintPages(url);
+
+    container = document.createElement("div");
+    container.className = "print-pdf-container";
+
+    const imgLoadPromises = [];
+
+    pages.forEach(({ dataUrl }) => {
+      const pageDiv = document.createElement("div");
+      pageDiv.className = "print-pdf-page";
+      const img = document.createElement("img");
+      img.src = dataUrl;
+
+      const loadPromise = new Promise((resolve) => {
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+      imgLoadPromises.push(loadPromise);
+
+      pageDiv.appendChild(img);
+      container.appendChild(pageDiv);
+    });
+
+    document.body.appendChild(container);
+
+    styleEl = document.createElement("style");
+    styleEl.textContent = `@page { size: ${orientation}; margin: 0; }`;
+    document.head.appendChild(styleEl);
+
+    document.body.classList.add("printing-pdf-doc");
+
+    // Attend que toutes les images soient réellement chargées/décodées
+    // dans le DOM, sinon le premier appel à window.print() peut afficher
+    // un aperçu vide ou obsolète (nécessitant de fermer/rouvrir la boîte
+    // de dialogue pour voir le contenu).
+    await Promise.all(imgLoadPromises);
+
+    // Force un cycle de rendu complet avant d'imprimer
+    await new Promise((resolve) =>
+      requestAnimationFrame(() => requestAnimationFrame(resolve)),
+    );
+
+    const cleanup = () => {
+      document.body.classList.remove("printing-pdf-doc");
+      if (container && container.parentNode)
+        document.body.removeChild(container);
+      if (styleEl && styleEl.parentNode) document.head.removeChild(styleEl);
+      window.removeEventListener("afterprint", cleanup);
+    };
+
+    window.addEventListener("afterprint", cleanup);
+    // Filet de sécurité si "afterprint" n'est pas déclenché (certains navigateurs/contextes)
+    setTimeout(cleanup, 120000);
+
+    window.print();
+  } catch (err) {
+    console.error("Échec de la préparation de l'impression :", err);
+    if (container && container.parentNode) document.body.removeChild(container);
+    if (styleEl && styleEl.parentNode) document.head.removeChild(styleEl);
+    document.body.classList.remove("printing-pdf-doc");
+    window.open(url, "_blank", "noreferrer");
+  }
+}
+
 function DocumentCard({ doc, isAdmin, onDelete, onEdit }) {
   const categoryLabel = [doc.category_name, doc.subcategory_name]
     .filter(Boolean)
     .join(" › ");
+
+  const handleDownload = (e) => {
+    e.preventDefault();
+    const filename = doc.title ? `${doc.title}.pdf` : undefined;
+    downloadFile(doc.file_url, filename);
+  };
+
+  const handlePrint = (e) => {
+    e.preventDefault();
+    printFile(doc.file_url);
+  };
+  // Note : printFile est asynchrone (récupération du blob avant impression),
+  // mais on n'a pas besoin d'attendre son résultat ici.
 
   return (
     <div className="doc-card">
@@ -124,24 +275,42 @@ function DocumentCard({ doc, isAdmin, onDelete, onEdit }) {
         >
           Ouvrir
         </a>
-        {isAdmin && (
-          <>
-            <button
-              className="btn-icon"
-              onClick={() => onEdit(doc)}
-              title="Modifier"
-            >
-              ✏️
-            </button>
-            <button
-              className="btn-icon danger"
-              onClick={() => onDelete(doc)}
-              title="Supprimer"
-            >
-              🗑
-            </button>
-          </>
-        )}
+        <div className="doc-footer-actions">
+          <button
+            className="btn-icon btn-icon--download"
+            onClick={handleDownload}
+            title="Télécharger"
+            aria-label="Télécharger le document"
+          >
+            ⬇️
+          </button>
+          <button
+            className="btn-icon btn-icon--print"
+            onClick={handlePrint}
+            title="Imprimer"
+            aria-label="Imprimer le document"
+          >
+            🖨️
+          </button>
+          {isAdmin && (
+            <>
+              <button
+                className="btn-icon btn-icon--edit"
+                onClick={() => onEdit(doc)}
+                title="Modifier"
+              >
+                ✏️
+              </button>
+              <button
+                className="btn-icon danger"
+                onClick={() => onDelete(doc)}
+                title="Supprimer"
+              >
+                🗑
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
