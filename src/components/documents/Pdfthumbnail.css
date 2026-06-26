@@ -36,7 +36,7 @@
     }
 
     &.pdf-thumb-fallback {
-      background-color: rgba(184, 115, 51, 0.12);
+      background-color: #4a6da71f;
 
       & .pdf-thumb-icon {
         font-size: 0.65rem;

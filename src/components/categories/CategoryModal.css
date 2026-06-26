@@ -72,13 +72,13 @@
         font-weight: 400;
 
         &::placeholder {
-          color: #b0a8a0;
+          color: #4a6ea7;
           font-style: italic;
         }
 
         &:focus {
           border-color: #4a6da7;
-          box-shadow: 0 0 0 3px rgba(184, 115, 51, 0.12);
+          box-shadow: 0 0 0 3px #4a6da71f;
         }
       }
     }
@@ -86,7 +86,7 @@
     .error-message {
       font-size: 0.82rem;
       color: #c0392b;
-      background: #fdf2f1;
+      background: #4a6da72b;
       border: 1px solid #f0c8c4;
       border-radius: 3px;
       padding: 0.45rem 0.75rem;

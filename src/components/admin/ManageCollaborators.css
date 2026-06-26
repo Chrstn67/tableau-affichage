@@ -184,7 +184,7 @@
     .collab-error {
       font-size: 0.82rem;
       color: #c0392b;
-      background: #fdf2f1;
+      background: #4a6da72b;
       border: 1px solid #f0c8c4;
       border-radius: 3px;
       padding: 0.45rem 0.75rem;
@@ -330,7 +330,7 @@
               background: transparent;
 
               &:hover:not(:disabled) {
-                background: #fdf2f1;
+                background: #4a6da72b;
                 border-color: #e0a8a0;
               }
             }

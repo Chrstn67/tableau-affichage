@@ -89,7 +89,7 @@
   border-radius: 3px;
   font-size: 0.9rem;
   color: #2c3240;
-  background: #f9f7f4;
+  background: #4a6da72b;
   outline: none;
   transition:
     border-color 0.18s,
@@ -97,14 +97,14 @@
     background 0.18s;
 
   &::placeholder {
-    color: #b0a8a0;
+    color: #4a6ea7;
     font-style: italic;
   }
 
   &:focus {
     border-color: #4a6da7;
     background: #fff;
-    box-shadow: 0 0 0 3px rgba(184, 115, 51, 0.12);
+    box-shadow: 0 0 0 3px #4a6da71f;
   }
 }
 
