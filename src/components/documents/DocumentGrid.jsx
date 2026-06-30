@@ -334,8 +334,6 @@ export default function DocumentGrid({
   loading,
   mode,
 }) {
-  if (loading) return <p className="doc-empty">Chargement des documents…</p>;
-
   if (mode === "home") {
     const recent = documents.filter((d) => isNew(d.created_at));
     return (
