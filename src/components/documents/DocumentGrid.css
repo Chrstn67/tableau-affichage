@@ -3,6 +3,9 @@
   --brand-light: #dce6f5;
   --brand-dark: #2e4a7a;
   --brand-muted: #6e8dc0;
+  --fav: #e6a817;
+  --fav-light: #fef7e6;
+  --fav-dark: #b07d0a;
   --radius-card: 14px;
   --radius-sm: 8px;
 }
@@ -13,11 +16,14 @@
   margin-inline: 1em;
 }
 
+.doc-section {
+  margin-bottom: 2.5rem;
+}
+
 .doc-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: 16px;
-  margin-bottom: 2.5rem;
 }
 
 /* ── Section header ── */
@@ -30,7 +36,7 @@
   border-bottom: 1.5px solid var(--brand-light);
 }
 
-.section-icon {
+.section-header .section-icon {
   width: 32px;
   height: 32px;
   border-radius: var(--radius-sm);
@@ -41,6 +47,12 @@
   color: #fff;
   font-size: 15px;
   flex-shrink: 0;
+}
+
+/* En-tête Favoris : couleur dorée */
+.doc-section:has(.section-title-fav) .section-icon,
+.section-header--fav .section-icon {
+  background: var(--fav);
 }
 
 .section-title {
@@ -76,6 +88,78 @@
 .doc-card:hover {
   box-shadow: 0 4px 20px rgba(74, 109, 167, 0.14);
   transform: translateY(-2px);
+}
+
+/* Carte favorite : bordure et légère teinte dorée */
+.doc-card--favorite {
+  outline: solid 2px var(--fav);
+  background: linear-gradient(180deg, var(--fav-light) 0%, #fff 60px);
+}
+
+.doc-card--favorite:hover {
+  box-shadow: 0 4px 20px rgba(230, 168, 23, 0.2);
+}
+
+/* ── Bouton favori ── */
+.btn-favorite {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: #4a6da7;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  color: #ffffff;
+  transition:
+    color 0.15s,
+    background 0.15s,
+    transform 0.15s;
+  padding: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.btn-favorite:hover {
+  color: var(--fav);
+  background: #fff;
+  transform: scale(1.15);
+}
+
+.btn-favorite--active {
+  color: var(--fav);
+  background: #fff;
+}
+
+.btn-favorite--active:hover {
+  color: var(--fav-dark);
+}
+
+/* Animation au clic */
+@keyframes fav-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.35);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.btn-favorite--active {
+  animation: fav-pop 0.3s ease;
 }
 
 /* ── Thumbnail ── */
@@ -318,7 +402,6 @@
 }
 
 @media print {
-  /* Masque tout le reste du site, n'affiche que les pages du PDF */
   body.printing-pdf-doc > *:not(.print-pdf-container) {
     display: none !important;
   }
