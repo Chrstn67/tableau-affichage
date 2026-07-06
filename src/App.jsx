@@ -322,6 +322,21 @@ export default function App() {
     loadDocuments();
   }, [loadCategories, loadDocuments]);
 
+  // Recharge les données quand l'utilisateur revient sur l'onglet
+  // (évite d'afficher "Aucun document" après une absence prolongée)
+  useEffect(() => {
+    function handleVisibilityChange() {
+      if (document.visibilityState === "visible") {
+        loadCategories();
+        loadDocuments();
+      }
+    }
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [loadCategories, loadDocuments]);
+
   const sharedProps = {
     categories,
     documents,
