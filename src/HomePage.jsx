@@ -29,6 +29,14 @@ export default function HomePage({ categories = [], documents = [] }) {
               Ce site est réservé aux membres de l'assemblée de Mutzig. Merci de
               ne pas partager le lien du site et ses accès avec des personnes
               extérieures.
+              <br />
+              <br />
+              <i>
+                Ne révèle jamais des informations au sujet de nos frères et
+                sœurs, ou des activités de l'assemblée à des gens qui ne sont
+                pas en droit de les connaitre
+              </i>{" "}
+              (Ecc 3:7 ; w22.12 21 § 16).
             </p>
           </div>
 
