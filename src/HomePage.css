@@ -92,6 +92,29 @@
   margin: 0;
 }
 
+/* Lien à l'intérieur de l'avertissement */
+.home-notice-text a {
+  color: #4a6da7;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(74, 109, 167, 0.4);
+  text-underline-offset: 2px;
+  transition:
+    color 0.15s,
+    text-decoration-color 0.15s;
+}
+
+.home-notice-text a:hover {
+  color: #1a1a2e;
+  text-decoration-color: currentColor;
+}
+
+.home-notice-text a:focus-visible {
+  outline: 2px solid #4a6da7;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* ── Boutons d'action ── */
 .home-actions {
   display: flex;

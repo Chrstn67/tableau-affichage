@@ -122,8 +122,30 @@ function PdfThumbnail({ url, alt }) {
 
 // ── Utilitaires ──────────────────────────────────────────────────────────────
 
-function isNew(createdAt) {
-  return Date.now() - new Date(createdAt).getTime() < 7 * 24 * 60 * 60 * 1000;
+const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+// Marge pour ignorer le décalage naturel (ms) entre created_at et updated_at
+// à la création d'un document (les deux sont posés par défaut à `now()`).
+const EDIT_THRESHOLD_MS = 5000;
+
+/**
+ * Détermine le badge à afficher pour un document :
+ * - "updated" si le document a été modifié après sa création, récemment
+ * - "new" si le document a simplement été créé récemment (jamais modifié)
+ * - null sinon
+ */
+function getRecencyBadge(doc) {
+  const createdTime = new Date(doc.created_at).getTime();
+  const updatedTime = doc.updated_at
+    ? new Date(doc.updated_at).getTime()
+    : createdTime;
+  const now = Date.now();
+
+  const wasEdited = updatedTime - createdTime > EDIT_THRESHOLD_MS;
+
+  if (wasEdited) {
+    return now - updatedTime < WEEK_MS ? "updated" : null;
+  }
+  return now - createdTime < WEEK_MS ? "new" : null;
 }
 
 async function downloadFile(url, filename) {
@@ -237,6 +259,8 @@ function DocumentCard({
     .filter(Boolean)
     .join(" › ");
 
+  const badge = getRecencyBadge(doc);
+
   const handleDownload = (e) => {
     e.preventDefault();
     const filename = doc.title ? `${doc.title}.pdf` : undefined;
@@ -273,9 +297,14 @@ function DocumentCard({
         rel="noreferrer"
         className="doc-thumb-link"
       >
-        {isNew(doc.created_at) && (
+        {badge === "new" && (
           <span className="badge-new" aria-label="Nouveau document">
             Nouveau
+          </span>
+        )}
+        {badge === "updated" && (
+          <span className="badge-new" aria-label="Document mis à jour">
+            Mise à jour
           </span>
         )}
         <PdfThumbnail url={doc.file_url} alt={doc.title} />
@@ -287,11 +316,14 @@ function DocumentCard({
         </p>
         {categoryLabel && <span className="doc-tag">{categoryLabel}</span>}
         <span className="doc-date">
-          {new Date(doc.created_at).toLocaleDateString("fr-FR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          })}
+          {new Date(doc.updated_at || doc.created_at).toLocaleDateString(
+            "fr-FR",
+            {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            },
+          )}
         </span>
       </div>
 
@@ -400,7 +432,7 @@ export default function DocumentGrid({
 
   // ── Mode accueil ──
   if (mode === "home") {
-    const recent = documents.filter((d) => isNew(d.created_at));
+    const recent = documents.filter((d) => getRecencyBadge(d) !== null);
 
     return (
       <div className="doc-layout">

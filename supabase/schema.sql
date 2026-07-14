@@ -23,6 +23,7 @@ CREATE TABLE public.documents (
   file_path text NOT NULL,
   file_url text NOT NULL,
   created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
   CONSTRAINT documents_pkey PRIMARY KEY (id),
   CONSTRAINT documents_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.categories(id),
   CONSTRAINT documents_subcategory_id_fkey FOREIGN KEY (subcategory_id) REFERENCES public.subcategories(id)

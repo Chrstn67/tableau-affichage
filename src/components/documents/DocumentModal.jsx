@@ -80,7 +80,7 @@ export default function DocumentModal({
       if (editingDoc) {
         const { error: updateError } = await supabase
           .from("documents")
-          .update(payload)
+          .update({ ...payload, updated_at: new Date().toISOString() })
           .eq("id", editingDoc.id);
         if (updateError) throw updateError;
       } else {

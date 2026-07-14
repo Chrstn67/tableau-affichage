@@ -304,7 +304,7 @@ export default function App() {
     const { data } = await supabase
       .from("documents")
       .select(
-        "id, title, file_path, file_url, created_at, category_id, subcategory_id, categories(name), subcategories(name)",
+        "id, title, file_path, file_url, created_at, updated_at, category_id, subcategory_id, categories(name), subcategories(name)",
       )
       .order("created_at", { ascending: false });
 

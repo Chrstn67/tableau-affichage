@@ -36,7 +36,15 @@ export default function HomePage({ categories = [], documents = [] }) {
                 sœurs, ou des activités de l'assemblée à des gens qui ne sont
                 pas en droit de les connaitre
               </i>{" "}
-              (Ecc 3:7 ; w22.12 21 § 16).
+              (Ecc 3:7 ;{" "}
+              <a
+                href="https://wol.jw.org/fr/wol/l/r30/lp-f?q=w22.12+21+%C2%A7+16"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                w22.12 21 § 16
+              </a>
+              ).
             </p>
           </div>
 
