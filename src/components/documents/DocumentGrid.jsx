@@ -122,7 +122,7 @@ function PdfThumbnail({ url, alt }) {
 
 // ── Utilitaires ──────────────────────────────────────────────────────────────
 
-const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+const WEEK_MS = 4 * 24 * 60 * 60 * 1000;
 // Marge pour ignorer le décalage naturel (ms) entre created_at et updated_at
 // à la création d'un document (les deux sont posés par défaut à `now()`).
 const EDIT_THRESHOLD_MS = 5000;
