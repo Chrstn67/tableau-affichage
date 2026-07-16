@@ -1,12 +1,6 @@
-// App.jsx - Version corrigée avec l'ordre des routes
+// App.jsx
 import { useEffect, useMemo, useState, useCallback } from "react";
-import {
-  Routes,
-  Route,
-  useNavigate,
-  useParams,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import { supabase } from "./lib/supabaseClient";
 import { useAuth } from "./context/AuthContext";
 import HomePage from "./HomePage";
@@ -24,7 +18,7 @@ import MentionsLegales from "./MentionsLegales";
 
 import "./App.css";
 
-// ─── Page documents (anciennement tout dans App) ────────────────────────────
+// ─── Page documents ──────────────────────────────────────────────────────────
 function DocumentsPage({
   categories,
   documents,
@@ -276,21 +270,26 @@ function DocumentsPage({
   );
 }
 
-// ─── Root App : charge les données + définit les routes ─────────────────────
+// ─── Root App ────────────────────────────────────────────────────────────────
 export default function App() {
+  const { loading: authLoading, isAdmin } = useAuth();
   const [categories, setCategories] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const loadCategories = useCallback(async () => {
-    const { data: cats } = await supabase
+    const { data: cats, error: catsError } = await supabase
       .from("categories")
       .select("id, name")
       .order("name");
-    const { data: subs } = await supabase
+    const { data: subs, error: subsError } = await supabase
       .from("subcategories")
       .select("id, name, category_id")
       .order("name");
+
+    if (catsError) console.error("Erreur chargement catégories :", catsError);
+    if (subsError)
+      console.error("Erreur chargement sous-catégories :", subsError);
 
     const merged = (cats || []).map((cat) => ({
       ...cat,
@@ -301,12 +300,14 @@ export default function App() {
 
   const loadDocuments = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("documents")
       .select(
         "id, title, file_path, file_url, created_at, updated_at, category_id, subcategory_id, categories(name), subcategories(name)",
       )
       .order("created_at", { ascending: false });
+
+    if (error) console.error("Erreur chargement documents :", error);
 
     const mapped = (data || []).map((d) => ({
       ...d,
@@ -317,13 +318,26 @@ export default function App() {
     setLoading(false);
   }, []);
 
+  // ── CORRECTIF : attendre que l'auth soit résolue avant de charger ──────────
+  // authLoading passe à false une fois que checkSession() ET onAuthStateChange
+  // ont terminé — la session admin est alors restaurée dans le client Supabase,
+  // donc les requêtes partent avec le bon token.
   useEffect(() => {
+    if (authLoading) return;
     loadCategories();
     loadDocuments();
-  }, [loadCategories, loadDocuments]);
+  }, [authLoading, loadCategories, loadDocuments]);
 
-  // Recharge les données quand l'utilisateur revient sur l'onglet
-  // (évite d'afficher "Aucun document" après une absence prolongée)
+  // ── Recharge quand l'état admin change (connexion / déconnexion) ────────────
+  // isAdmin peut changer après le chargement initial (ex : l'admin se connecte
+  // dans la même session). On recharge pour que les RLS s'appliquent correctement.
+  useEffect(() => {
+    if (authLoading) return;
+    loadCategories();
+    loadDocuments();
+  }, [isAdmin]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Recharge au retour sur l'onglet ─────────────────────────────────────────
   useEffect(() => {
     function handleVisibilityChange() {
       if (document.visibilityState === "visible") {
@@ -347,31 +361,20 @@ export default function App() {
 
   return (
     <Routes>
-      {/* Page d'accueil */}
       <Route
         path="/"
         element={<HomePage categories={categories} documents={documents} />}
       />
-
-      {/* Tous les documents */}
       <Route path="/documents" element={<DocumentsPage {...sharedProps} />} />
-
-      {/* Filtre par catégorie */}
       <Route
         path="/documents/cat/:catId"
         element={<DocumentsPage {...sharedProps} />}
       />
-
-      {/* Filtre par sous-catégorie */}
       <Route
         path="/documents/cat/:catId/sub/:subId"
         element={<DocumentsPage {...sharedProps} />}
       />
-
-      {/* Mentions légales - PLACÉ AVANT LE FALLBACK */}
       <Route path="/mentions-legales" element={<MentionsLegales />} />
-
-      {/* Fallback → accueil - TOUJOURS EN DERNIER */}
       <Route
         path="*"
         element={<HomePage categories={categories} documents={documents} />}
