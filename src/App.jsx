@@ -11,7 +11,6 @@ import NameModal from "./components/common/NameModal";
 import AdminLogin from "./components/admin/AdminLogin";
 import ChangePasswordModal from "./components/admin/ChangePasswordModal";
 import ManageCollaborators from "./components/admin/ManageCollaborators";
-import AdminStats from "./components/admin/AdminStats";
 
 import Footer from "./Footer";
 import MentionsLegales from "./MentionsLegales";
@@ -34,7 +33,7 @@ function DocumentsPage({
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showDocModal, setShowDocModal] = useState(false);
   const [showCollaborators, setShowCollaborators] = useState(false);
-  const [showStats, setShowStats] = useState(false);
+
   const [editingDoc, setEditingDoc] = useState(null);
   const [nameModal, setNameModal] = useState(null);
 
@@ -176,12 +175,7 @@ function DocumentsPage({
                 >
                   👥 Gérer les accès
                 </button>
-                <button
-                  className="btn-secondary"
-                  onClick={() => setShowStats(true)}
-                >
-                  📊 Statistiques
-                </button>
+
                 <button
                   className="btn-secondary"
                   onClick={() => setShowChangePassword(true)}
@@ -221,8 +215,6 @@ function DocumentsPage({
       {showCollaborators && (
         <ManageCollaborators onClose={() => setShowCollaborators(false)} />
       )}
-
-      {showStats && <AdminStats onClose={() => setShowStats(false)} />}
 
       {showDocModal && (
         <DocumentModal
